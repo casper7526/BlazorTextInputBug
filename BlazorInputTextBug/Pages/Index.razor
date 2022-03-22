@@ -1,0 +1,41 @@
+﻿@page "/"
+
+<PageTitle>Index</PageTitle>
+
+
+<EditForm Model="formModel" OnValidSubmit="OnSubmit">
+    
+    Current Result = @formModel.TestString
+    <br/>
+    Current Result Is Null = @(formModel.TestString == null ? "Yes" : "No")
+    <br/>
+    <InputText @bind-Value="formModel.TestString"></InputText>
+    <br/>
+    <input type="Submit" />
+</EditForm>
+
+
+
+@code {
+
+    public class Mymodel
+    {
+        public string? TestString { get; set; }
+        public int? TestInt { get; set; }
+    }
+
+    public Mymodel formModel { get; set; } = new();
+
+    public void OnSubmit()
+    {
+        var  _nullableUnderlyingType = Nullable.GetUnderlyingType(typeof(int?));
+        var test = GetUnderLyingType(formModel.TestString);
+        var test2 = GetUnderLyingType(formModel.TestInt);        
+    }
+
+    public static Type GetUnderLyingType<T>(T o)
+    {
+        return Nullable.GetUnderlyingType(typeof(T));
+    }
+
+}
